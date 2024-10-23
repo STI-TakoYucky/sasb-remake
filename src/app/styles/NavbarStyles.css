@@ -1,5 +1,5 @@
 ul li {
-    padding-block: 1.5rem;
+    padding-block: 1rem;
     margin: 2rem 0;
 }
 
@@ -9,10 +9,15 @@ li:hover {
 }
 
 .links-container {
-    transition: all ease-in-out 2s;
+    transition: all ease-in-out .5s;
+}
+
+@media only screen and (max-height: 550px)  {
+    .links-container {
+        overflow: scroll;
+    } 
 }
 
 .active {
-    height: 100dvh;
-    display: block;
+    height: calc(100dvh - 88px); /*100dvh - navbar height*/
 }

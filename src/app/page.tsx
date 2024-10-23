@@ -1,12 +1,12 @@
+import FeaturedPosts from '@/components/FeaturedPosts';
 import React from 'react';
-import Preloader from '../components/Preloader';
-
+//install daisyUI   npm i -D daisyui@latest
 
 export default function Home() {
 
   return (
     <div>
-      <Preloader></Preloader>
+      <FeaturedPosts></FeaturedPosts>
     </div>
   );
 }

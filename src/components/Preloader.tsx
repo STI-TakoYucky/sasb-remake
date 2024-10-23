@@ -29,10 +29,10 @@ export default function Preloader() {
   }, [])
   
   return (
-    <div>
+    <div className='absolute z-50'>
         {/* <img src="images/preloader.gif" alt="" /> */}
         {
-            isLoading && ( <video width="320" height="240" autoPlay loop playsInline muted className='h-screen w-full object-cover'>
+            isLoading && ( <video autoPlay loop playsInline muted className='h-screen w-screen object-cover'>
               <source src="videos/preloader.mp4" type="video/mp4"/>
             </video>)
         }
