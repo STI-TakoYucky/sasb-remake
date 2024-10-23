@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 //install slick-carousel    npm install slick-carousel --save   npm install react-slick --save
 
-import '../app/styles/FeaturedPostsStyles.css';
+import '../FeaturedPosts/FeaturedPostsStyles.css';
 
 export default function FeaturedPosts() {
   var settings = {
@@ -18,6 +18,9 @@ export default function FeaturedPosts() {
     slidesToScroll: 1,
     className: "center",
     centerMode: true,
+    arrows: false,
+    autoplaySpeed: 4000,
+    autoplay: true,
   };
 
   return (

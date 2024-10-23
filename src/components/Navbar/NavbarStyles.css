@@ -9,7 +9,7 @@ li:hover {
 }
 
 .links-container {
-    transition: all ease-in-out .5s;
+    transition: all ease-in-out .7s;
 }
 
 @media only screen and (max-height: 550px)  {

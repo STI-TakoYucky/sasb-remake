@@ -4,8 +4,8 @@ export const metadata = {
 }
 
 import "./styles/globals.css";
-import Navbar from "../components/Navbar"
-import Preloader from '../components/Preloader';
+import Navbar from "../components/Navbar/Navbar"
+import Preloader from '../components/Preloader/Preloader';
 
 export default function RootLayout({
   children,
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* <Preloader></Preloader> */}
+        <Preloader></Preloader> 
         <Navbar></Navbar>
         {children}
       </body>

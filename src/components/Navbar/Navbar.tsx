@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
-import '../app/styles/NavbarStyles.css';
+import '../Navbar/NavbarStyles.css'
 
 import { IoMenu } from "react-icons/io5";
 //npm install react-icons --savell react-icons --save
@@ -10,7 +10,7 @@ import { IoMenu } from "react-icons/io5";
 export default function Navbar() {
 
   const showMenu = () => {
-    let links: HTMLElement | null = document.querySelector('.links-container');
+    const links: HTMLElement | null = document.querySelector('.links-container');
 
     if(links?.classList.contains('active')){
       links?.classList.remove('active');
@@ -20,7 +20,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className='bg-primary relative'>
+    <nav className='bg-primary relative z-30'>
         <div className='global-mx py-5 flex justify-between items-center'>  
             <div className='w-[3rem] flex items-center'><img src="./images/logo.png" alt="" /><h1 className='text-4xl font-onest font-bold text-white ml-1 mt-1'>SASB</h1></div>
             <div><IoMenu className='text-5xl text-white cursor-pointer' onClick={showMenu}/></div>
