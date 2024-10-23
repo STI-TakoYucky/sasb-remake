@@ -10,7 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 import '../FeaturedPosts/FeaturedPostsStyles.css';
 
 export default function FeaturedPosts() {
-  var settings = {
+  const settings = {
     dots: false,
     infinite: true,
     speed: 500,
