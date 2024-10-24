@@ -1,6 +1,7 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 export default function Preloader() {
   const [isLoading, setLoading] = useState(true);
@@ -11,6 +12,10 @@ export default function Preloader() {
     const handleLoad = () => {
       setTimeout(() => {
         setLoading(false);
+        const preloader: HTMLElement | null = document.querySelector(".preloader");
+
+        preloader ? preloader.style.display = "none" : null;
+        
       }, 2000)
     }
 
@@ -29,12 +34,18 @@ export default function Preloader() {
   }, [])
   
   return (
-    <div className='absolute z-[9999] bg-white h-screen'>
-        {/* <img src="images/preloader.gif" alt="" /> */}
+    <div className='preloader z-[9999] h-screen w-screen fixed'>
         {
-            isLoading && ( <video autoPlay loop playsInline muted className='h-screen w-screen object-cover'>
-              <source src="videos/preloader.mp4" type="video/mp4"/>
-            </video>)
+            isLoading && 
+            (<div className='bg-white h-screen w-screen flex justify-center items-center'>
+              <Image
+                src={"/images/logo.png"}
+                alt='scc logo'
+                width={170}
+                height={170}
+                className='bg-primary-200 rounded-full p-4 animate-spin-slow'
+              />
+            </div>)
         }
     </div>
   )

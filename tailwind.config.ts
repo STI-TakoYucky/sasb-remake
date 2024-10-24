@@ -18,6 +18,9 @@ const config: Config = {
         },
         secondary: '#FFF99E'
       },
+      animation: {
+        'spin-slow': 'spin 10s linear infinite',
+      }
     },
   },
   plugins: [require('daisyui')],
