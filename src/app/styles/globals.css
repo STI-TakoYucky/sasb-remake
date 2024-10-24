@@ -25,6 +25,8 @@ body {
   }
 }
 
+/* Global Styles Starts Here*/
+
 .font-onest {
   font-family: var(--font-onest);
   font-weight: bold;
@@ -38,3 +40,62 @@ body {
 .global-mx {
   @apply mx-5 md:mx-7;
 }
+
+/* Global Styles Ends Here*/
+
+
+/* Navbar Styles Starts Here*/
+
+nav {
+  position: fixed;
+  width: 100%;
+}
+
+.nav__links li {
+  padding-block: 1rem;
+  margin: 2rem 0;
+}
+
+.nav__links li:hover {
+  background-color: white;
+  color: #4869BD;
+}
+
+.nav__container {
+  transition: all ease-in-out .7s;
+  position: fixed;
+}
+
+@media only screen and (max-height: 550px)  {
+  .nav__container {
+      overflow: scroll;
+  } 
+}
+
+.nav__container--active {
+  height: calc(100dvh - 88px); /*100dvh - navbar height*/
+}
+
+/* Navbar Styles Ends Here*/
+
+
+/* Featured Posts Styles Starts Here*/
+
+.slider__image {
+  max-width: 24rem;
+  margin: 0 .5rem;
+}
+
+.slider__image img {
+  filter: brightness(.9);
+  border-radius: .5rem;
+  min-width: 24rem;
+  height: auto;
+  transition: all ease-in-out .7s;
+}
+
+.slider__image img:hover {
+  transform: scale(1.1);
+}
+
+/* Featured Posts Styles Ends Here*/

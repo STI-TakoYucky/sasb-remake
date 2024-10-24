@@ -29,7 +29,7 @@ export default function Preloader() {
   }, [])
   
   return (
-    <div className='absolute z-[9999]'>
+    <div className='absolute z-[9999] bg-white h-screen'>
         {/* <img src="images/preloader.gif" alt="" /> */}
         {
             isLoading && ( <video autoPlay loop playsInline muted className='h-screen w-screen object-cover'>

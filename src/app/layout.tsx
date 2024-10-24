@@ -4,8 +4,8 @@ export const metadata = {
 }
 
 import "./styles/globals.css";
-import Navbar from "../components/Navbar/Navbar"
-import Preloader from '../components/Preloader/Preloader';
+import Navbar from "../components/Navbar"
+import Preloader from '../components/Preloader';
 
 export default function RootLayout({
   children,

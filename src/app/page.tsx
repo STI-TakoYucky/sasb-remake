@@ -1,15 +1,15 @@
-import FeaturedPosts from '@/components/FeaturedPosts/FeaturedPosts';
+import FeaturedPosts from '@/components/FeaturedPosts';
 import React from 'react';
 //install daisyUI   npm i -D daisyui@latest
 
-import Post from '@/components/Post/Post'
+import Post from '@/components/Post'
 
 export default function Home() {
 
   return (
-    <div className='pb-40'>
+    <main className='py-20'>
       <FeaturedPosts></FeaturedPosts>
       <Post></Post>
-    </div>
+    </main>
   );
 }
