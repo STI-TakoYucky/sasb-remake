@@ -11,8 +11,10 @@ export default function Login() {
 const [error, setError] = useState(false);
 
 const HandleLogin = (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
   setError(true);
+  if (error) {
+    event.preventDefault();
+  }
 }
 
   return (

@@ -10,9 +10,9 @@ export default function AuthForm({data, submit, buttonName}: CustomAuthFormProps
     <>
          <form className="form-control gap-5 w-full" onSubmit={submit}>
           {
-            data.map(({icon, inputType, placeholder}) => {
+            data.map(({icon, inputType, placeholder}, index) => {
               return (
-                <label className="input input-primary input-bordered flex items-center gap-2">
+                <label className="input input-primary input-bordered flex items-center gap-2" key={index}>
                 <Image src={icon} width={20} height={20} alt='email' className=''/>
                 <input type={inputType} className="grow" placeholder={placeholder} required/>
                 </label>

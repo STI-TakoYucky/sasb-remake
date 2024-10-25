@@ -1,5 +1,4 @@
 import "@/styles/globals.css";
-import { usePathname } from 'next/navigation';
 import Navbar from "../../components/Navbar"
 import Preloader from '../../components/Preloader'
 import Footer from '@/components/Footer'
