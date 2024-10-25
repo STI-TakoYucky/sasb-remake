@@ -12,17 +12,27 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         primary: {
-          DEFAULT: '#6991DC',
-          100: '#6991DC',
-          200: '#4869BD'
+          DEFAULT: "#6991DC",
+          100: "#6991DC",
+          200: "#4869BD",
         },
-        secondary: '#FFF99E'
+        secondary: "#FFF99E",
       },
       animation: {
-        'spin-slow': 'spin 10s linear infinite',
-      }
+        "spin-slow": "spin 10s linear infinite",
+      },
     },
   },
-  plugins: [require('daisyui')],
+  daisyui: {
+    themes: [
+      {
+        mytheme: {
+          primary: "#6991DC",
+          secondary: "#FFF99E",
+        },
+      },
+    ],
+  },
+  plugins: [require("daisyui")],
 };
 export default config;

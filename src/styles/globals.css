@@ -1,14 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Onest:wght@100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Onest:wght@100..900&display=swap');
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #2b2b2b;
   --font-onest: 'Onest', 'Arial';
-  --font-nunito-sans: "Nunito Sans", "Arial";
+  --font-nunito-sans: "Nunito Sans";
+  height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-onest);
 }
 
 body {
@@ -99,3 +105,10 @@ nav {
 }
 
 /* Featured Posts Styles Ends Here*/
+
+
+
+/* Log In Styles Starts Here*/
+
+
+/* Log In Styles Ends Here*/

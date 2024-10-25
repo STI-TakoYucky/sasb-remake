@@ -14,7 +14,9 @@ export default function Preloader() {
         setLoading(false);
         const preloader: HTMLElement | null = document.querySelector(".preloader");
 
-        preloader ? preloader.style.display = "none" : null;
+        if(preloader) {
+          preloader.style.display = "none";
+        }
         
       }, 2000)
     }
