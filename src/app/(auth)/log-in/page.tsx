@@ -5,20 +5,26 @@ import Link from 'next/link';
 import Image from 'next/image'
 import { useState } from 'react'
 import { CustomAuthForm } from "@/components";
+import { useRouter } from "next/navigation";
+import { setLogin } from "../../../../utils/middleware";
+
 
 export default function Login() {
 
 const [error, setError] = useState(false);
+const router = useRouter();
 
 const HandleLogin = (event: React.FormEvent<HTMLFormElement>) => {
-  setError(true);
   if (error) {
+    setError(true)
     event.preventDefault();
-  }
+  } 
+    setLogin();
+    router.push("/");
 }
 
   return (
-    <main className="flex justify-center items-center h-screen bg-primary-200">
+    <main className="flex justify-center items-center h-[100dvh] bg-primary-200">
       <section className="shadow-2xl w-full global-mx flex flex-col justify-center items-center rounded-md bg-white h-[35rem] p-8 max-w-[30rem]">
         <div className="flex items-center justify-center flex-col mb-5">
           <Image

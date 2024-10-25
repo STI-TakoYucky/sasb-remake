@@ -13,7 +13,7 @@ export default function Register() {
 
   return (
     <div>
-        <main className="flex justify-center items-center h-screen bg-primary-200">
+        <main className="flex justify-center items-center h-[100dvh] bg-primary-200">
       <section className="shadow-2xl w-full global-mx flex flex-col justify-center items-center rounded-md bg-white h-[40rem] p-8 max-w-[30rem]">
         <div className="flex items-center justify-center flex-col mb-5">
           <Image
