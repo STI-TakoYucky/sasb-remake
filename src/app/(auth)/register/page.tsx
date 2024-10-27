@@ -1,14 +1,19 @@
 'use client'
 
-import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CustomAuthForm } from '@/components'
+import { useAuthRefs } from '../../../../hooks'
 
 export default function Register() {
 
-    const HandleRegister = (event: React.FormEvent<HTMLFormElement>) => {
+    const { emailRef, usernameRef, passwordRef} = useAuthRefs();
+
+    const HandleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        const email = emailRef.current?.value;
+        const username = usernameRef.current?.value;
+        const password = passwordRef.current?.value;
       }
 
   return (
@@ -31,17 +36,20 @@ export default function Register() {
         {
           icon: "/images/mail.svg",
           inputType: "text",
-          placeholder: "Email"
+          placeholder: "Email",
+          ref: emailRef
         },
         {
             icon: "/images/user-round.svg",
             inputType: "text",
             placeholder: "Username",
+            ref: usernameRef
         },
         {
           icon: "/images/key-round.svg",
           inputType: "password",
           placeholder: "Password",
+          ref: passwordRef
         }
        ]}
        submit={HandleRegister}

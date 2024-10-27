@@ -6,20 +6,20 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { CustomAuthForm } from "@/components";
 import { useRouter } from "next/navigation";
-import { setLogin } from "../../../../utils/middleware";
+import { useAuthRefs } from "../../../../hooks";
 
 
 export default function Login() {
 
 const [error, setError] = useState(false);
 const router = useRouter();
+const { usernameRef, passwordRef} = useAuthRefs();
 
 const HandleLogin = (event: React.FormEvent<HTMLFormElement>) => {
   if (error) {
     setError(true)
     event.preventDefault();
   } 
-    setLogin();
     router.push("/");
 }
 
@@ -42,12 +42,14 @@ const HandleLogin = (event: React.FormEvent<HTMLFormElement>) => {
         {
           icon: "/images/mail.svg",
           inputType: "text",
-          placeholder: "Email"
+          placeholder: "Email",
+          ref: usernameRef
         },
         {
           icon: "/images/key-round.svg",
           inputType: "password",
           placeholder: "Password",
+          ref: passwordRef
         }
        ]}
        submit={HandleLogin}
