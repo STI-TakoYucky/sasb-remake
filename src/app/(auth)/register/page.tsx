@@ -14,6 +14,20 @@ export default function Register() {
         const email = emailRef.current?.value;
         const username = usernameRef.current?.value;
         const password = passwordRef.current?.value;
+
+        try{
+          const res = await fetch("/api/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email, username, password,
+            })
+          });
+        } catch (error) {
+          console.log(error);
+        }
       }
 
   return (
