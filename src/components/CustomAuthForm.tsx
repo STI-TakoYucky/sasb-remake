@@ -2,7 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { CustomAuthFormProps } from '../../types'
 
-export default function AuthForm({data, submit, buttonName}: CustomAuthFormProps) {
+export default function AuthForm({data, submit, buttonName, children}: CustomAuthFormProps) {
   
   return (
     <>
@@ -17,14 +17,7 @@ export default function AuthForm({data, submit, buttonName}: CustomAuthFormProps
               );
             })
           }
-          {/* {
-            error && (
-              <div className="-mb-5">
-                <span>
-                  <p className="text-red-500">Invalid Email or Password</p>
-                </span>
-              </div>)
-          } */}
+          {children}
 
           <input className="btn btn-success my-5" type="submit" value={buttonName}></input>
         </form>

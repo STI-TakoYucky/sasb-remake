@@ -13,7 +13,7 @@ export default function Login() {
 
 const [error, setError] = useState(false);
 const router = useRouter();
-const { usernameRef, passwordRef} = useAuthRefs();
+const { emailRef, passwordRef} = useAuthRefs();
 
 const HandleLogin = (event: React.FormEvent<HTMLFormElement>) => {
   if (error) {
@@ -43,7 +43,7 @@ const HandleLogin = (event: React.FormEvent<HTMLFormElement>) => {
           icon: "/images/mail.svg",
           inputType: "text",
           placeholder: "Email",
-          ref: usernameRef
+          ref: emailRef
         },
         {
           icon: "/images/key-round.svg",

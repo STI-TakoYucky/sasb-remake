@@ -6,5 +6,6 @@ export interface CustomAuthFormProps {
     ref: React.RefObject<HTMLInputElement>
   }[];
   submit: (event: React.FormEvent<HTMLFormElement>) => void,
-  buttonName: string
+  buttonName: string,
+  children?: React.ReactNode
 }
