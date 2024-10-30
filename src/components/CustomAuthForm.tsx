@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { CustomAuthFormProps } from '../../types'
 
-export default function AuthForm({data, submit, buttonName, children}: CustomAuthFormProps) {
+export default function AuthForm({data, submit, buttonName, children, success}: CustomAuthFormProps) {
+
   
   return (
     <>
@@ -19,7 +20,7 @@ export default function AuthForm({data, submit, buttonName, children}: CustomAut
           }
           {children}
 
-          <input className="btn btn-success my-5" type="submit" value={buttonName}></input>
+          <input className="btn btn-success my-5" type="submit" value={buttonName} disabled={success}></input>
         </form>
     </>
   )

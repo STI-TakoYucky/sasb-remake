@@ -1,13 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CustomAuthForm } from "@/components";
 import { useAuthRefs } from "../../../../hooks";
 
 export default function Register() {
+
+
+
   const router = useRouter();
 
   const { emailRef, firstNameRef, lastNameRef, passwordRef } = useAuthRefs();
@@ -15,6 +18,13 @@ export default function Register() {
   const [error, setError] = useState(false);
   //sets the message in the form whether if it is an error or a successful operation for the users to see
   const [statusMessage, setStatusMessage] = useState("");
+  //disable the register button if the registration is a success
+  const [isSuccess, setSuccess] = useState(false);
+
+  //at render, change the success to false to reset the registration button
+  useEffect(() => {
+    setSuccess(false);
+  }, [])
 
   const HandleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,6 +55,7 @@ export default function Register() {
           });
 
           if(res.status === 201) {
+          setSuccess(true);
           setError(false);
           setStatusMessage("Registered Succesfully");
 
@@ -102,6 +113,7 @@ export default function Register() {
             ]}
             submit={HandleRegister}
             buttonName="Register"
+            success={isSuccess}//if success reverse the boolean so the button will be disabled
           >
             {statusMessage && (
             <div className="-mb-5">
