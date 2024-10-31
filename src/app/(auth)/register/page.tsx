@@ -8,9 +8,6 @@ import { CustomAuthForm } from "@/components";
 import { useAuthRefs } from "../../../../hooks";
 
 export default function Register() {
-
-
-
   const router = useRouter();
 
   const { emailRef, firstNameRef, lastNameRef, passwordRef } = useAuthRefs();
@@ -36,7 +33,8 @@ export default function Register() {
     if (!email || !firstName || !lastName || !password) {
       setStatusMessage("Please fill out all the required fields.");
       setError(true);
-    }else if(password.length < 7){
+    } 
+    else if(password.length < 7){
       setStatusMessage("Password must be 8 letters or more.");
       setError(true);
     } else {
@@ -54,17 +52,22 @@ export default function Register() {
             }),
           });
 
-          if(res.status === 201) {
+          const response = await res.json();
+
+          if (res.status === 201) {
           setSuccess(true);
           setError(false);
-          setStatusMessage("Registered Succesfully");
+          setStatusMessage(response.message);
 
           setTimeout(() => {
             router.push("/log-in");
           }, 3000)
+          } else if (res.status === 500) {
+            setError(true);
+            setStatusMessage(response.message);
           }
         } catch (err) {
-          console.log(err);
+          console.error(err)
         }
     }
   };
@@ -113,7 +116,7 @@ export default function Register() {
             ]}
             submit={HandleRegister}
             buttonName="Register"
-            success={isSuccess}//if success reverse the boolean so the button will be disabled
+            success={isSuccess}
           >
             {statusMessage && (
             <div className="-mb-5">

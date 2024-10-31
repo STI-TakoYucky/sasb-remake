@@ -3,18 +3,18 @@ import connect from "../../../../lib/mongodb";
 import { NextResponse } from "next/server";
 
 export const POST = async (request: any) => {
+    await connect();
     const { firstName, lastName, email, password } = await request.json();
 
-    await connect();
+    const emailAlreadyExists: string | null = await User.findOne({"email": email})
 
-    await User.create({firstName, lastName, email, password});
+    if(emailAlreadyExists){
+        return NextResponse.json({message: "Email already exists"}, {status: 500});
+        
+    } else {
 
-    return NextResponse.json({message: "User Created"}, {status: 201});
-}
-
-export async function GET() {
-    await connect();
-
-    const users = await User.find();
-    return NextResponse.json({users});
+        await User.create({firstName, lastName, email, password});
+    
+        return NextResponse.json({message: "Registered succesfully"}, {status: 201});
+    }
 }

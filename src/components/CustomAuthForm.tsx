@@ -20,7 +20,7 @@ export default function AuthForm({data, submit, buttonName, children, success}: 
           }
           {children}
 
-          <input className="btn btn-success my-5" type="submit" value={buttonName} disabled={success}></input>
+          <input className="btn btn-success my-5 disabled:bg-[#00a96e]" type="submit" value={buttonName} disabled={success}></input>
         </form>
     </>
   )
