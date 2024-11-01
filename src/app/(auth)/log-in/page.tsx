@@ -7,13 +7,18 @@ import { useState, useEffect } from 'react'
 import { CustomAuthForm } from "@/components";
 import { useRouter } from "next/navigation";
 import { useAuthRefs } from "../../../../hooks";
+import Middleware from "@/app/middleware";
 
 export default function Login() {
 
-const [error, setError] = useState(false);
 const router = useRouter();
+const [error, setError] = useState(false);
 const { emailRef, passwordRef } = useAuthRefs();
+const {setAuthenticated} = Middleware()
 const [isSuccess, setSuccess] = useState(false);
+
+  //sets the message in the form whether if it is an error or a successful operation for the users to see
+  const [statusMessage, setStatusMessage] = useState("");
 
   //at render, change the success to false to reset the registration button
   useEffect(() => {
@@ -24,15 +29,30 @@ const HandleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
   event.preventDefault();
 
   const email = emailRef.current?.value;
+  const password = passwordRef.current?.value;
 
   try {
     const res = await fetch('/api/log-in', {
-      method: "GET",
+      method: "POST",
       headers:{
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({email})
+      body: JSON.stringify({email, password})
     })
+
+    const status = await res.json();
+
+    if (res.status === 200) {
+      setStatusMessage(status.message)
+      setAuthenticated(true);
+      router.push("/")
+    } else if (res.status === 404) {
+      setStatusMessage(status.message)
+      setError(true);
+    } else if (res.status === 401) {
+      setStatusMessage(status.message)
+      setError(true);
+    }
 
   } catch (error) {
     console.error(error);
@@ -72,7 +92,15 @@ const HandleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
        buttonName="Log In"
        success={isSuccess}
 
-       ></CustomAuthForm>
+       >
+        {statusMessage && (
+            <div className="-mb-5">
+              <span>
+                <p className={error ? "text-red-500": "text-green-500"}>{statusMessage}</p>
+              </span>
+            </div>
+            )}
+       </CustomAuthForm>
 
         <div className="text-center w-[80%] relative flex flex-col items-center mb-5">
           <p className="bg-white text-primary z-50 px-5">OR</p>

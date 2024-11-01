@@ -4,6 +4,18 @@ import { NextResponse } from 'next/server'
 
 export async function POST(request: any) {
     await connect();
-    const users = await request.json();
-    return NextResponse.json({message: "Users found"}, {status: 200})
+    const  { email, password } = await request.json();
+
+    const user: any = await User.findOne({"email": email})
+    
+
+    if (!user) {
+        return NextResponse.json({message: "Email does not exist"}, {status: 404})
+    }
+
+    if(user.password === password) {
+        return NextResponse.json({message: "Logged in succesfully"}, {status: 200})
+    }
+
+    return NextResponse.json({message: "Invalid Password"}, {status: 401})
 }

@@ -52,19 +52,19 @@ export default function Register() {
             }),
           });
 
-          const response = await res.json();
+          const status = await res.json();
 
           if (res.status === 201) {
           setSuccess(true);
           setError(false);
-          setStatusMessage(response.message);
+          setStatusMessage(status.message);
 
           setTimeout(() => {
             router.push("/log-in");
           }, 3000)
           } else if (res.status === 500) {
             setError(true);
-            setStatusMessage(response.message);
+            setStatusMessage(status.message);
           }
         } catch (err) {
           console.error(err)
