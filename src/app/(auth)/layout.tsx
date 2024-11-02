@@ -12,7 +12,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-theme="light">
-      <body className={``}>{children}</body>
+      <body className={``}>
+        {children}
+        </body>
     </html>
   )
 }

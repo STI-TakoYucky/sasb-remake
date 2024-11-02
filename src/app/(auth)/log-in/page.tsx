@@ -8,6 +8,7 @@ import { CustomAuthForm } from "@/components";
 import { useRouter } from "next/navigation";
 import { useAuthRefs } from "../../../../hooks";
 import Middleware from "@/app/middleware";
+import { signIn } from "next-auth/react";
 
 export default function Login() {
 
@@ -40,17 +41,19 @@ const HandleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
       body: JSON.stringify({email, password})
     })
 
-    const status = await res.json();
+    const {message, token} = await res.json();
 
-    if (res.status === 200) {
-      setStatusMessage(status.message)
-      setAuthenticated(true);
-      router.push("/")
+    if (res.ok) {
+      setStatusMessage(message)
+      
+
+      console.log(token);
+      
     } else if (res.status === 404) {
-      setStatusMessage(status.message)
+      setStatusMessage(message)
       setError(true);
     } else if (res.status === 401) {
-      setStatusMessage(status.message)
+      setStatusMessage(message)
       setError(true);
     }
 
