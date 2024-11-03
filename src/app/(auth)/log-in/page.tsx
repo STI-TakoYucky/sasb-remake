@@ -7,15 +7,14 @@ import { useState, useEffect } from 'react'
 import { CustomAuthForm } from "@/components";
 import { useRouter } from "next/navigation";
 import { useAuthRefs } from "../../../../hooks";
-import Middleware from "@/app/middleware";
-import { signIn } from "next-auth/react";
+import { login } from "../../../../lib/authenticate";
+
 
 export default function Login() {
 
 const router = useRouter();
 const [error, setError] = useState(false);
 const { emailRef, passwordRef } = useAuthRefs();
-const {setAuthenticated} = Middleware()
 const [isSuccess, setSuccess] = useState(false);
 
   //sets the message in the form whether if it is an error or a successful operation for the users to see
@@ -33,22 +32,15 @@ const HandleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
   const password = passwordRef.current?.value;
 
   try {
-    const res = await fetch('/api/log-in', {
-      method: "POST",
-      headers:{
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({email, password})
-    })
 
-    const {message, token} = await res.json();
+    const res = await login(email, password);
+    
+    const { message, token } = await res.json();
 
     if (res.ok) {
-      setStatusMessage(message)
-      
-
-      console.log(token);
-      
+      setStatusMessage(message)     
+      localStorage.setItem("token", token);
+      router.replace('/')
     } else if (res.status === 404) {
       setStatusMessage(message)
       setError(true);

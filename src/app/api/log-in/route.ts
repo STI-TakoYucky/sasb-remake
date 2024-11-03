@@ -1,6 +1,7 @@
 import connect from "../../../../lib/mongodb";
 import User from "../../../../models/User";
 import { NextResponse } from 'next/server'
+import jwt from "jsonwebtoken";
 
 export async function POST(request: any) {
     await connect();
@@ -14,7 +15,13 @@ export async function POST(request: any) {
     }
 
     if(user.password === password) {
-        return NextResponse.json({message: "Logged in succesfully"}, {status: 200})
+        const JWT_SECRET_KEY = process.env.SECRET_KEY;
+
+        if(!JWT_SECRET_KEY) {
+            return NextResponse.json({message: "Server error"}, {status: 401})
+        }
+        const token = jwt.sign({email}, JWT_SECRET_KEY)
+        return NextResponse.json({message: "Logged in succesfully", token}, {status: 200})
     }
 
     return NextResponse.json({message: "Invalid Password"}, {status: 401})

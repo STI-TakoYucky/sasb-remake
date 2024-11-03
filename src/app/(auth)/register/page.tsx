@@ -52,19 +52,22 @@ export default function Register() {
             }),
           });
 
-          const status = await res.json();
+          const { message } = await res.json();
+
+          console.log(status);
+          
 
           if (res.status === 201) {
           setSuccess(true);
           setError(false);
-          setStatusMessage(status.message);
+          setStatusMessage(message);
 
           setTimeout(() => {
             router.push("/log-in");
           }, 3000)
           } else if (res.status === 500) {
             setError(true);
-            setStatusMessage(status.message);
+            setStatusMessage(message);
           }
         } catch (err) {
           console.error(err)
