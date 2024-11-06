@@ -22,6 +22,8 @@ import mongoose from 'mongoose';
 let cached = (global as any).mongoose;
 
 const connect = async () => {
+
+    console.time("CONNECT");
     const mongoURI = process.env.MONGODB_URI;
 
     if (!mongoURI) {
@@ -44,6 +46,7 @@ const connect = async () => {
 
     cached.conn = await cached.promise;
     console.log("Mongo connection established successfully");
+    console.timeEnd("CONNECT");
     return cached.conn;
 };
 

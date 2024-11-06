@@ -42,8 +42,7 @@ export default function Register() {
       setError(true);
     } else {
         try {
-          console.time("API Req");
-          const res = await fetch("https://sasb-remake.vercel.app/api/register", {
+          const res = await fetch("/api/register", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -68,7 +67,7 @@ export default function Register() {
             router.push("/log-in");
           }, 3000)
 
-          console.time("END");
+         
           } else if (res.status === 500) {
             setError(true);
             setStatusMessage(message);
@@ -76,6 +75,7 @@ export default function Register() {
         } catch (err) {
           console.error(err)
         }
+        console.timeEnd("CHECK CREDENTIALS");
     }
   };
 
