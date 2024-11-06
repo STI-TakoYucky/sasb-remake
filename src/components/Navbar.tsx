@@ -25,13 +25,17 @@ const [isProfileSettingsToggled, setProfileSettingsToggle] = useState(false);
   }
 
   const Logout = () => {
-    localStorage.removeItem('username');
-    localStorage.removeItem('token')
+    if (typeof window !== "undefined") {
+      localStorage.removeItem('username');
+      localStorage.removeItem('token')
+    }
     router.replace('/log-in')
   }
 
   const getUsername = () => {
-    return localStorage.getItem('username')
+    if (typeof window !== "undefined") {
+      return localStorage.getItem('username')
+    }
   }
 
   const toggleProfileSettings = () => {

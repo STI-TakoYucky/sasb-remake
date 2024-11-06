@@ -41,9 +41,11 @@ const HandleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     if (res.ok) {
       setError(false);
       setStatusMessage(message)     
-      localStorage.setItem("token", token);
+      if (typeof window !== "undefined") {
+        localStorage.setItem('username', fullName)
+        localStorage.setItem("token", token);
+      }
       setUsername(firstName, lastName);
-      localStorage.setItem('username', fullName)
       router.replace('/')
     } else if (res.status === 404) {
       setStatusMessage(message)
