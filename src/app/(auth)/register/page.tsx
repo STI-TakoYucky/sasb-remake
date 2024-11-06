@@ -25,7 +25,7 @@ export default function Register() {
 
   const HandleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
 
-    console.time("check credentials");
+    console.log("check credentials");
 
     event.preventDefault();
     const email = emailRef.current?.value;
