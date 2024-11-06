@@ -24,6 +24,9 @@ export default function Register() {
   }, [])
 
   const HandleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
+
+    console.time("check credentials");
+
     event.preventDefault();
     const email = emailRef.current?.value;
     const firstName = firstNameRef.current?.value;
@@ -39,6 +42,7 @@ export default function Register() {
       setError(true);
     } else {
         try {
+          console.time("API Req");
           const res = await fetch("https://sasb-remake.vercel.app/api/register", {
             method: "POST",
             headers: {
@@ -63,6 +67,8 @@ export default function Register() {
           setTimeout(() => {
             router.push("/log-in");
           }, 3000)
+
+          console.time("END");
           } else if (res.status === 500) {
             setError(true);
             setStatusMessage(message);
