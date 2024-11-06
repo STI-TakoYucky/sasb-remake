@@ -9,7 +9,7 @@ export const POST = async (request: any) => {
     const emailAlreadyExists: string | null = await User.findOne({"email": email})
 
     if(emailAlreadyExists){
-        return NextResponse.json({message: "Email already exists"}, {status: 500});
+        return NextResponse.json({message: "Email already exists"}, {status: 409 });
         
     } else {
 
