@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 let isConnected = false;
 
-export const POST = async (request: any) => {
+export const POST = async (request: any, response: any) => {
     console.time("START API");
 
     // Connect only if not connected yet (avoid reconnecting every time)
@@ -17,14 +17,7 @@ export const POST = async (request: any) => {
     const { firstName, lastName, email, password } = await request.json();
 
     try {
-        // Find user by email and handle user creation conditionally.
-        const existingUser = await User.findOne({ email });
-
-        if (existingUser) {
-            console.timeEnd("START API");
-            return NextResponse.json({ message: "Email already exists" }, { status: 409 });
-        }
-
+       
         // Create new user if not already existing.
         const newUser = new User({
             firstName,
@@ -40,6 +33,10 @@ export const POST = async (request: any) => {
     } catch (error) {
         console.error("Error during registration:", error);
         console.timeEnd("START API");
+
+        if(response.status == 409) {
+            return NextResponse.json({ message: "Email already exists" }, { status: 409 });
+        }
         return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
 };
