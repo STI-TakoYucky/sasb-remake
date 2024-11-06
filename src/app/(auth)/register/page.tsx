@@ -42,7 +42,7 @@ export default function Register() {
       setError(true);
     } else {
         try {
-          const res = await fetch("/api/register", {
+          const res = await fetch("https://sasb-remake.vercel.app/api/register", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
