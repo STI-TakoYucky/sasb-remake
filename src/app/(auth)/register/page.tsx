@@ -53,8 +53,6 @@ export default function Register() {
           });
 
           const { message } = await res.json();
-
-          console.log(status);
           
 
           if (res.status === 201) {

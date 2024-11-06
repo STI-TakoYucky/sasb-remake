@@ -8,6 +8,7 @@ import { CustomAuthForm } from "@/components";
 import { useRouter } from "next/navigation";
 import { useAuthRefs } from "../../../../hooks";
 import { login } from "../../../../lib/authenticate";
+import { setUsername, fullName } from "../../../../utils";
 
 
 export default function Login() {
@@ -35,11 +36,14 @@ const HandleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
 
     const res = await login(email, password);
     
-    const { message, token } = await res.json();
+    const { message, token, firstName, lastName } = await res.json();
 
     if (res.ok) {
+      setError(false);
       setStatusMessage(message)     
       localStorage.setItem("token", token);
+      setUsername(firstName, lastName);
+      localStorage.setItem('username', fullName)
       router.replace('/')
     } else if (res.status === 404) {
       setStatusMessage(message)

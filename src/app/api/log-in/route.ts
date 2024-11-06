@@ -8,6 +8,8 @@ export async function POST(request: any) {
     const  { email, password } = await request.json();
 
     const user: any = await User.findOne({"email": email})
+    const firstName = user.firstName;
+    const lastName = user.lastName
     
 
     if (!user) {
@@ -21,7 +23,7 @@ export async function POST(request: any) {
             return NextResponse.json({message: "Server error"}, {status: 401})
         }
         const token = jwt.sign({email}, JWT_SECRET_KEY)
-        return NextResponse.json({message: "Logged in succesfully", token}, {status: 200})
+        return NextResponse.json({message: "Logged in succesfully", token, firstName, lastName}, {status: 200})
     }
 
     return NextResponse.json({message: "Invalid Password"}, {status: 401})
