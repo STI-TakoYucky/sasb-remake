@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useAuthRefs } from "../../../../hooks";
 import { login } from "../../../../lib/authenticate";
 import { setUsername, fullName } from "../../../../utils";
+import User from "../../../../models/User";
 
 
 export default function Login() {
@@ -35,20 +36,21 @@ const HandleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
   try {
 
     const res = await login(email, password);
-    
+
     const data = await res.json();
 
-    if (res.status === 200) {
-      setUsername(res.firstName, res.lastName);
+    if (res.ok) {
       setError(false);
-      setStatusMessage(res.message)     
+      setStatusMessage(data.message)
+        
       if (typeof window !== "undefined") {
+        setUsername(data.firstName, data.lastName)   
         localStorage.setItem('username', fullName)
-        localStorage.setItem("token", res.token);
+        localStorage.setItem("token", data.token);
       }
       router.replace('/')
     } else if (!res.ok) {
-      setStatusMessage(res.message)
+      setStatusMessage(data.message)
       setError(true);
     }
   } catch (error: any) {

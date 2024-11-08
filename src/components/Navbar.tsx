@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
 
@@ -12,7 +12,15 @@ export default function Navbar() {
 
   const router = useRouter();
   
-const [isProfileSettingsToggled, setProfileSettingsToggle] = useState(false);
+  const [isProfileSettingsToggled, setProfileSettingsToggle] = useState(false);
+  const [username, setUsername] = useState<string | null>("");
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const user = localStorage.getItem('username');
+      setUsername(user);
+    }
+  }, [])
 
   const showMenu = () => {
     const links: HTMLElement | null = document.querySelector('.nav__container');
@@ -32,11 +40,6 @@ const [isProfileSettingsToggled, setProfileSettingsToggle] = useState(false);
     router.replace('/log-in')
   }
 
-  const getUsername = () => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem('username')
-    }
-  }
 
   const toggleProfileSettings = () => {
     !isProfileSettingsToggled ? setProfileSettingsToggle(true) : setProfileSettingsToggle(false)
@@ -49,7 +52,7 @@ const [isProfileSettingsToggled, setProfileSettingsToggle] = useState(false);
         <div className='global-mx py-5 flex justify-between items-center'>  
             <div className='w-[3rem] flex items-center'><img src="./images/logo.png" alt="" /><h1 className='text-4xl font-onest font-bold text-white ml-1 mt-1'>SASB</h1></div>
             <div className='relative'>
-              <button className='underline text-white cursor-pointer' onClick={toggleProfileSettings}>{getUsername()}</button>
+              <button className='underline text-white cursor-pointer' onClick={toggleProfileSettings}>{username}</button>
               <div className={profileSettingsStyle}>
                 <button className='flex items-center justify-center gap-2' onClick={Logout}><CiLogout /> Logout</button>
               </div>

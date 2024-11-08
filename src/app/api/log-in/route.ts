@@ -15,10 +15,7 @@ export async function POST(request: any) {
     const  { email, password } = await request.json();
 
     const user: any = await User.findOne({"email": email})
-    const firstName = user.firstName;
-    const lastName = user.lastName
     
-
     if (!user) {
         return NextResponse.json({message: "Email does not exist"}, {status: 404})
     }
@@ -27,11 +24,11 @@ export async function POST(request: any) {
         const JWT_SECRET_KEY = process.env.SECRET_KEY;
 
         if(!JWT_SECRET_KEY) {
-            return NextResponse.json({message: "Server error"}, {status: 401})
+            return NextResponse.json({"message": "Server error"}, {status: 401})
         }
         const token = jwt.sign({email}, JWT_SECRET_KEY)
-        return NextResponse.json({message: "Logged in succesfully", token: token, firstName: firstName, lastName: lastName}, {status: 200})
+        return NextResponse.json({"message": "Logged in succesfully", "token": token, "firstName": user.firstName, "lastName": user.lastName}, {status: 200})
     }
 
-    return NextResponse.json({message: "Invalid Password"}, {status: 401})
+    return NextResponse.json({"message": "Invalid Password"}, {status: 401})
 }

@@ -14,15 +14,14 @@ export const login = async (email: string | undefined, password: string | undefi
 
       const data = await res.json();
 
-      // if(res.ok) {
-        // return NextResponse.json({ message: data.message, token: data.token, firstName: data.firstName, lastName: data.lastName}, {status: data.status});
-
-      // }
-
       
-      return data;
 
-      // return NextResponse.json({ message: data.message }, {status: data.status});
+      if(res.ok) {
+        return NextResponse.json({ "message": data.message, "token": data.token, "firstName": data.firstName, "lastName": data.lastName}, {status: res.status});
+      }
+
+
+      return NextResponse.json({ "message": data.message }, {status: res.status});
     } catch (error) {
       return NextResponse.json({error})
     }
