@@ -3,8 +3,15 @@ import User from "../../../../models/User";
 import { NextResponse } from 'next/server'
 import jwt from "jsonwebtoken";
 
+let isConnected = false;
+
 export async function POST(request: any) {
-    await connect();
+
+    if(!isConnected) {
+        await connect();
+        isConnected = true;
+    }
+
     const  { email, password } = await request.json();
 
     const user: any = await User.findOne({"email": email})
@@ -23,7 +30,7 @@ export async function POST(request: any) {
             return NextResponse.json({message: "Server error"}, {status: 401})
         }
         const token = jwt.sign({email}, JWT_SECRET_KEY)
-        return NextResponse.json({message: "Logged in succesfully", token, firstName, lastName}, {status: 200})
+        return NextResponse.json({message: "Logged in succesfully", token: token, firstName: firstName, lastName: lastName}, {status: 200})
     }
 
     return NextResponse.json({message: "Invalid Password"}, {status: 401})

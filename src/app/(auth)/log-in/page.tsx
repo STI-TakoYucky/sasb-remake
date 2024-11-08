@@ -36,27 +36,23 @@ const HandleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
 
     const res = await login(email, password);
     
-    const { message, token, firstName, lastName } = await res.json();
+    const data = await res.json();
 
-    if (res.ok) {
+    if (res.status === 200) {
+      setUsername(res.firstName, res.lastName);
       setError(false);
-      setStatusMessage(message)     
+      setStatusMessage(res.message)     
       if (typeof window !== "undefined") {
         localStorage.setItem('username', fullName)
-        localStorage.setItem("token", token);
+        localStorage.setItem("token", res.token);
       }
-      setUsername(firstName, lastName);
       router.replace('/')
-    } else if (res.status === 404) {
-      setStatusMessage(message)
-      setError(true);
-    } else if (res.status === 401) {
-      setStatusMessage(message)
+    } else if (!res.ok) {
+      setStatusMessage(res.message)
       setError(true);
     }
-
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    setStatusMessage(error.message);
   }
 }
 

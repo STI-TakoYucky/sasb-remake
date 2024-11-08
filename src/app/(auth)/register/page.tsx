@@ -42,7 +42,8 @@ export default function Register() {
       setError(true);
     } else {
         try {
-          const res = await fetch("https://sasb-remake.vercel.app/api/register", {
+          const URL = process.env.NEXT_PUBLIC_API_URL;
+          const res = await fetch(`${URL}/api/register`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -58,7 +59,7 @@ export default function Register() {
           const { message } = await res.json();
           
 
-          if (res.status === 201) {
+          if (res.ok) {
           setSuccess(true);
           setError(false);
           setStatusMessage(message);
@@ -68,7 +69,7 @@ export default function Register() {
           }, 3000)
 
          
-          } else if (res.status === 500) {
+          } else if (!res.ok) {
             setError(true);
             setStatusMessage(message);
           }
