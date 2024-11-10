@@ -5,6 +5,7 @@ import Preloader from "./Preloader";
 import Footer from "./Footer";
 import CustomAuthForm from "./CustomAuthForm";
 import ProtectedRoutes from "./ProtectedRoutes";
+import AuthenticationPage from "./AuthenticationPage";
 
 export {
     FeaturedPosts,
@@ -13,5 +14,6 @@ export {
     Preloader,
     Footer,
     CustomAuthForm,
-    ProtectedRoutes
+    ProtectedRoutes,
+    AuthenticationPage
 }

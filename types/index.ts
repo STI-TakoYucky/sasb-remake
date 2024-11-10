@@ -10,3 +10,10 @@ export interface CustomAuthFormProps {
   children?: React.ReactNode,
   success: boolean
 }
+
+export interface AuthenticationPageProps {
+  linkName: string,
+  link: string,
+  styles: string,
+  children: React.ReactNode
+}

@@ -1,15 +1,14 @@
 'use client'
 
 import React from "react";
-import Link from 'next/link';
-import Image from 'next/image'
+import { verifyToken } from "../../../../lib/verifyToken";
 import { useState, useEffect } from 'react'
 import { CustomAuthForm } from "@/components";
 import { useRouter } from "next/navigation";
 import { useAuthRefs } from "../../../../hooks";
 import { login } from "../../../../lib/authenticate";
 import { setUsername, fullName } from "../../../../utils";
-import User from "../../../../models/User";
+import { AuthenticationPage } from "@/components";
 
 
 export default function Login() {
@@ -22,10 +21,13 @@ const [isSuccess, setSuccess] = useState(false);
   //sets the message in the form whether if it is an error or a successful operation for the users to see
   const [statusMessage, setStatusMessage] = useState("");
 
-  //at render, change the success to false to reset the registration button
   useEffect(() => {
-    setSuccess(false);
-  }, [])
+    const token = localStorage.getItem("token");
+
+    if(token && verifyToken(token)){
+        router.push('/')
+    }
+}, [router])
 
 const HandleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
   event.preventDefault();
@@ -59,20 +61,12 @@ const HandleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
 }
 
   return (
-    <main className="flex justify-center items-center h-[100dvh] bg-primary-200">
-      <section className="shadow-2xl w-full global-mx flex flex-col justify-center items-center rounded-md bg-white h-[35rem] p-8 max-w-[30rem]">
-        <div className="flex items-center justify-center flex-col mb-5">
-          <Image
-            src={"/images/logo.png"}
-            width={100}
-            height={100}
-            alt="scc logo"
-            className="bg-primary-100 rounded-full p-3"
-          />
-          <h1 className="font-bold text-2xl mt-3">Welcome to SASB!</h1>
-        </div>
-       
-       <CustomAuthForm
+    <AuthenticationPage
+      linkName="Register"
+      link="/register"
+      styles="shadow-2xl w-full global-mx flex flex-col justify-center items-center rounded-md bg-white h-[35rem] p-8 max-w-[30rem]"
+    >
+      <CustomAuthForm
        data={[
         {
           icon: "/images/mail.svg",
@@ -100,16 +94,9 @@ const HandleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
             </div>
             )}
        </CustomAuthForm>
-
-        <div className="text-center w-[80%] relative flex flex-col items-center mb-5">
-          <p className="bg-white text-primary z-50 px-5">OR</p>
-          <div className="bg-primary w-full h-[2px] absolute top-3"></div>
-        </div>
-
-        <div>
-          <p>Need an account? <Link href={"/register"} className="underline text-primary-200">Register</Link></p>
-        </div>
-      </section>
-    </main>
+    </AuthenticationPage>
+    
+       
+       
   );
 }
