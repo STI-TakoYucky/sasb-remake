@@ -97,6 +97,8 @@ export default function Register() {
       }
       console.timeEnd("CHECK CREDENTIALS");
     }
+
+    //test comment
   };
 
   return (
