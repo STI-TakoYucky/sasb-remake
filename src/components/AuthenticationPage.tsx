@@ -1,7 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { AuthenticationPageProps } from '../../types';
 
-const AuthenticationPage = ( { linkName, link, styles, children }:any ) => {
+const AuthenticationPage:React.FC<AuthenticationPageProps> = ( { linkName, link, styles, children } ) => {
   return (
     <main className="flex justify-center items-center h-[100dvh] bg-primary-200">
       <section className={styles}>

@@ -18,12 +18,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ProtectedRoutes>
-          <Preloader></Preloader> 
-          <Navbar></Navbar>
-          {children}
-          <Footer></Footer>
-        </ProtectedRoutes>
+          <ProtectedRoutes>
+            <Preloader></Preloader> 
+            <Navbar></Navbar>
+            {children}
+            <Footer></Footer>
+          </ProtectedRoutes>
       </body>
     </html>
   )

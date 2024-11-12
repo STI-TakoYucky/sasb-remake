@@ -3,24 +3,24 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
-
+import { useContext } from 'react';
+import { userContext } from './UserContextComponent';
 import { IoMenu } from "react-icons/io5";
 import { CiLogout } from "react-icons/ci";
+import CreatePostButton from './adminComponents/CreatePostButton';
 //npm install react-icons --savell react-icons --save
 
 export default function Navbar() {
 
   const router = useRouter();
-  
   const [isProfileSettingsToggled, setProfileSettingsToggle] = useState(false);
-  const [username, setUsername] = useState<string | null>("");
+  const USERCONTEXT = useContext(userContext);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const user = localStorage.getItem('username');
-      setUsername(user);
-    }
-  }, [])
+  if (!USERCONTEXT) {
+    throw new Error("USERCONTEXT must be used within a UserProvider");
+  }
+
+  const { username, role } = USERCONTEXT;
 
   const showMenu = () => {
     const links: HTMLElement | null = document.querySelector('.nav__container');
@@ -45,7 +45,7 @@ export default function Navbar() {
     !isProfileSettingsToggled ? setProfileSettingsToggle(true) : setProfileSettingsToggle(false)
   }
 
-  const profileSettingsStyle = `${isProfileSettingsToggled ? "block" : "hidden"} bg-white h-52 w-[15rem] absolute right-0 top-7 rounded-md p-5 text-lg`
+  const profileSettingsStyle = `${isProfileSettingsToggled ? "block" : "hidden"} bg-white h-52 w-[15rem] absolute right-0 top-7 rounded-md p-5 text-lg flex flex-col items-start gap-3`
 
   return (
     <nav className='bg-primary z-30'>
@@ -55,6 +55,7 @@ export default function Navbar() {
               <button className='underline text-white cursor-pointer' onClick={toggleProfileSettings}>{username}</button>
               <div className={profileSettingsStyle}>
                 <button className='flex items-center justify-center gap-2' onClick={Logout}><CiLogout /> Logout</button>
+                {role == "admin" && <CreatePostButton></CreatePostButton>}
               </div>
             </div>
             

@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import CustomAuthForm from "./CustomAuthForm";
 import ProtectedRoutes from "./ProtectedRoutes";
 import AuthenticationPage from "./AuthenticationPage";
+import UserContextComponent from "./UserContextComponent";
 
 export {
     FeaturedPosts,
@@ -15,5 +16,6 @@ export {
     Footer,
     CustomAuthForm,
     ProtectedRoutes,
-    AuthenticationPage
+    AuthenticationPage,
+    UserContextComponent
 }
