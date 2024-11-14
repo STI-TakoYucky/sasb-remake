@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 export default function Post() {
 
-  const getPosts = async () => {
+  const FetchPosts = async () => {
     const URL = process.env.NEXT_PUBLIC_API_URL;
     const res = await fetch(`${URL}/api/get-posts`);
 
@@ -13,12 +13,12 @@ export default function Post() {
 
     console.log(data);
 
-    data.map((data) => {
+    return data.map((data: any) => {
         return <div className='post-item global-mx my-16'>
         <div className='flex post-header'>
             <Image src="/images/logo.png" width={100} height={100} alt='image' className='bg-primary-100 w-12 h-12 rounded-full p-2'/>
             <div className='ml-2'>
-                <h1 className='font-onest text-lg'>Samuel Christian College</h1>
+                <h1 className='font-onest text-lg'>{data.organization}</h1>
                 <p>2 hrs ago</p>
             </div>
         </div>
@@ -29,19 +29,16 @@ export default function Post() {
             <img src="https://picsum.photos/1340" alt="" className='rounded-md aspect-video object-cover'/>
         </div>
         <div className='post-desc'>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium in perspiciatis fugit, reprehenderit nostrum deleniti expedita sunt adipisci cupiditate dolore tenetur commodi id blanditiis nisi aperiam veniam? Molestias, ut ducimus!
+            {data.caption}
         </div>
     </div>
     })
-    
   }
 
-  useEffect(() => {
-    getPosts()
-  }, [])
     
   return (
     <>
+    {FetchPosts()}
     {/* <div className='post-item global-mx my-16'>
         <div className='flex post-header'>
             <Image src="/images/logo.png" width={100} height={100} alt='image' className='bg-primary-100 w-12 h-12 rounded-full p-2'/>
