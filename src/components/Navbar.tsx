@@ -2,63 +2,32 @@
 
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation';
-import { useContext } from 'react';
-import { userContext } from './UserContextComponent';
 import { IoMenu } from "react-icons/io5";
-import { CiLogout } from "react-icons/ci";
-import CreatePostButton from './adminComponents/CreatePostButton';
+import ProfileDropdown from './ProfileDropdown';
+
 //npm install react-icons --savell react-icons --save
 
 export default function Navbar() {
 
-  const router = useRouter();
-  const [isProfileSettingsToggled, setProfileSettingsToggle] = useState(false);
-  const USERCONTEXT = useContext(userContext);
-
-  if (!USERCONTEXT) {
-    throw new Error("USERCONTEXT must be used within a UserProvider");
-  }
-
-  const { username, role } = USERCONTEXT;
-
   const showMenu = () => {
-    const links: HTMLElement | null = document.querySelector('.nav__container');
+    const links: HTMLElement | null = document.querySelector(".nav__container");
 
-    if(links?.classList.contains('nav__container--active')){
-      links?.classList.remove('nav__container--active');
+    if (links?.classList.contains("nav__container--active")) {
+      links?.classList.remove("nav__container--active");
     } else {
-      links?.classList.add('nav__container--active');
+      links?.classList.add("nav__container--active");
     }
-  }
-
-  const Logout = () => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem('username');
-      localStorage.removeItem('token')
-    }
-    router.replace('/log-in')
-  }
-
-
-  const toggleProfileSettings = () => {
-    !isProfileSettingsToggled ? setProfileSettingsToggle(true) : setProfileSettingsToggle(false)
-  }
-
-  const profileSettingsStyle = `${isProfileSettingsToggled ? "block" : "hidden"} bg-white h-52 w-[15rem] absolute right-0 top-7 rounded-md p-5 text-lg flex flex-col items-start gap-3`
+  };
 
   return (
     <nav className='bg-primary z-30'>
         <div className='global-mx py-5 flex justify-between items-center'>  
-            <div className='w-[3rem] flex items-center'><img src="./images/logo.png" alt="" /><h1 className='text-4xl font-onest font-bold text-white ml-1 mt-1'>SASB</h1></div>
+            <div className='w-[3rem] flex items-center'><img src="public/images/logo.png" alt="" /><h1 className='text-4xl font-onest font-bold text-white ml-1 mt-1'><Link href='/'>SASB</Link></h1></div>
             <div className='relative'>
-              <button className='underline text-white cursor-pointer' onClick={toggleProfileSettings}>{username}</button>
-              <div className={profileSettingsStyle}>
-                <button className='flex items-center justify-center gap-2' onClick={Logout}><CiLogout /> Logout</button>
-                {role == "admin" && <CreatePostButton></CreatePostButton>}
-              </div>
             </div>
             
+            <ProfileDropdown></ProfileDropdown>
+
             <div className='hidden'><IoMenu className='text-5xl text-white cursor-pointer' onClick={showMenu}/></div>
         </div>
         

@@ -4,7 +4,7 @@ import { AuthenticationPageProps } from '../../types';
 
 const AuthenticationPage:React.FC<AuthenticationPageProps> = ( { linkName, link, styles, children } ) => {
   return (
-    <main className="flex justify-center items-center h-[100dvh] bg-primary-200">
+    <main className="flex justify-center items-center h-[120%] bg-primary-200">
       <section className={styles}>
         <div className="flex items-center justify-center flex-col mb-5">
           <Image

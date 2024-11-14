@@ -7,6 +7,7 @@ import CustomAuthForm from "./CustomAuthForm";
 import ProtectedRoutes from "./ProtectedRoutes";
 import AuthenticationPage from "./AuthenticationPage";
 import UserContextComponent from "./UserContextComponent";
+import ProfileDropdown from "./ProfileDropdown";
 
 export {
     FeaturedPosts,
@@ -17,5 +18,6 @@ export {
     CustomAuthForm,
     ProtectedRoutes,
     AuthenticationPage,
-    UserContextComponent
+    UserContextComponent,
+    ProfileDropdown
 }
