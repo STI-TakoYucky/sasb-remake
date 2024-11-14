@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import { Navbar } from "@/components";
 
 export const metadata = {
   title: 'SASB',
@@ -10,11 +11,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
   return (
-    <html lang="en" data-theme="light">
-      <body className="min-h-[100dvh]">
-        {children}
-        </body>
+    <html lang="en">
+      <body>
+        <Navbar></Navbar>
+            {children}
+      </body>
     </html>
   )
 }

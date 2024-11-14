@@ -105,7 +105,7 @@ export default function Register() {
     <AuthenticationPage
       linkName="Login"
       link="/log-in"
-      styles="shadow-2xl w-full global-mx flex flex-col justify-center items-center rounded-md bg-white h-[54rem] p-8 max-w-[30rem] md:max-w-[35rem]"
+      styles="shadow-2xl w-full global-mx flex flex-col justify-center items-center rounded-md bg-white h-[51rem] p-8 my-10 max-w-[30rem] md:max-w-[35rem]"
     >
       <CustomAuthForm
         data={[

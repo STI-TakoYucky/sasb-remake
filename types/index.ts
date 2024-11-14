@@ -17,3 +17,10 @@ export interface AuthenticationPageProps {
   styles: string,
   children: React.ReactNode
 }
+
+export interface useCredentialsProps {
+  firstName?: string,
+  lastName?: string,
+  role?: string,
+  children?: React.ReactNode
+}

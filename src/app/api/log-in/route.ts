@@ -22,12 +22,12 @@ export async function POST(request: any) {
 
     if(user.password === password) {
         const JWT_SECRET_KEY = process.env.SECRET_KEY;
-
+        
         if(!JWT_SECRET_KEY) {
             return NextResponse.json({"message": "Server error"}, {status: 401})
         }
         const token = jwt.sign({email}, JWT_SECRET_KEY)
-        return NextResponse.json({"message": "Logged in succesfully", "token": token, "firstName": user.firstName, "lastName": user.lastName}, {status: 200})
+        return NextResponse.json({"message": "Logged in succesfully", "token": token, "firstName": user.firstName, "lastName": user.lastName, "role": user.role}, {status: 200})
     }
 
     return NextResponse.json({"message": "Invalid Password"}, {status: 401})
