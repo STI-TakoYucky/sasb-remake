@@ -15,7 +15,8 @@ export const GET = async (request: any, response: any) => {
     
 
     try {
-        const posts = await PostModel.find();
+        const posts = await PostModel.find().read('primary');;
+        response.setHeader('Cache-Control', 'no-store'); // Prevent caching
         return NextResponse.json( posts, { status: 200})
 
     } catch (error) {
