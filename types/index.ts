@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface CustomAuthFormProps {
   data: {
     icon: string;
@@ -23,4 +25,9 @@ export interface useCredentialsProps {
   lastName?: string,
   role?: string,
   children?: React.ReactNode
+}
+
+export interface alertProps {
+  setError: Dispatch<SetStateAction<boolean>>
+  setStatusMessage: Dispatch<SetStateAction<string>>
 }

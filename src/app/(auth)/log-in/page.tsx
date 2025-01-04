@@ -95,15 +95,13 @@ export default function Login() {
         buttonName="Log In"
         success={isSuccess}
       >
-        {statusMessage && (
-          <div className="-mb-5">
+        <div className="-mb-5 min-h-6">
             <span>
               <p className={error ? "text-red-500" : "text-green-500"}>
                 {statusMessage}
               </p>
             </span>
           </div>
-        )}
       </CustomAuthForm>
     </AuthenticationPage>
   );
