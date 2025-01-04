@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-theme="light">
-      <body className="min-h-[100dvh]">
+      <body className="">
         {children}
         </body>
     </html>

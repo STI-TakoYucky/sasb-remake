@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { verifyToken } from "../../../../lib/verifyToken";
 import { useRouter } from "next/navigation";
-import { AuthenticationPage, CustomAuthForm } from "@/components";
+import { AuthenticationPage, CustomAuthForm, Alert} from "@/components";
 import { useAuthRefs } from "../../../../hooks";
 
 export default function Register() {
@@ -43,7 +43,8 @@ export default function Register() {
   };
 
   const HandleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
-    console.log("check credentials");
+    setError(false);
+    console.log("check credentials"); 
 
     event.preventDefault();
     const email = emailRef.current?.value.trim();
@@ -95,17 +96,14 @@ export default function Register() {
       } catch (err) {
         console.error(err);
       }
-      console.timeEnd("CHECK CREDENTIALS");
     }
-
-    //test comment
   };
 
   return (
     <AuthenticationPage
       linkName="Login"
       link="/log-in"
-      styles="shadow-2xl w-full global-mx flex flex-col justify-center items-center rounded-md bg-white h-[51rem] p-8 my-10 max-w-[30rem] md:max-w-[35rem]"
+      styles="shadow-2xl w-full global-mx flex flex-col justify-center items-center rounded-md bg-white h-[43rem] p-8 my-10 max-w-[30rem] md:max-w-[35rem]"
     >
       <CustomAuthForm
         data={[
@@ -138,7 +136,8 @@ export default function Register() {
         buttonName="Register"
         success={isSuccess}
       >
-        <div className="text-gray-600 mt-3">
+
+        {/* <div className="text-gray-600 mt-3">
           <ul className="flex gap-[.5rem] flex-col">
             <li>
               <p>Must contain atleast one uppercase and lowercase letter.</p>
@@ -156,18 +155,18 @@ export default function Register() {
               <p></p>
             </li>
           </ul>
-        </div>
+        </div> */}
 
-        {statusMessage && (
-          <div className="-mb-5">
+          <div className="-mb-5 min-h-6">
             <span>
               <p className={error ? "text-red-500" : "text-green-500"}>
                 {statusMessage}
               </p>
             </span>
           </div>
-        )}
+          
       </CustomAuthForm>
+      {error && <Alert setError={setError} setStatusMessage={setStatusMessage}></Alert>}
     </AuthenticationPage>
   );
 }
