@@ -17,7 +17,12 @@ export const GET = async (request: any, response: any) => {
     try {
         const posts = await PostModel.find();
 
-        return NextResponse.json( posts, { status: 200})
+        return NextResponse.json(posts, {
+            status: 200,
+            headers: {
+              'Cache-Control': 'no-store', // Prevent caching on this response
+            },
+          });
 
     } catch (error) {
         return NextResponse.json({ message: "Server Error" }, { status: 500 });
