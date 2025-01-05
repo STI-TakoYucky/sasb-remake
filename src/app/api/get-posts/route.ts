@@ -5,21 +5,21 @@ import { NextResponse } from "next/server";
 
 let isConnected = false;
 
-export const GET = async (request: any) => {
-  if (!isConnected) {
-    await connect();
-    isConnected = true;
-  }
+export const GET = async (request: any, response: any) => {
 
-  try {
-    const posts = await PostModel.find();
+    if (!isConnected) {
+        await connect();
+        isConnected = true;
+    }
 
-    const response = NextResponse.json(posts, { status: 200 });
+    
 
-    return response;
-  } catch (error) {
+    try {
+        const posts = await PostModel.find();
 
-    console.error("Error fetching posts:", error); 
-    return NextResponse.json({ message: "Server Error" }, { status: 500 });
-  }
+        return NextResponse.json( posts, { status: 200})
+
+    } catch (error) {
+        return NextResponse.json({ message: "Server Error" }, { status: 500 });
+    }
 };
