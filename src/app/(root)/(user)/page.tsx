@@ -14,7 +14,9 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       const URL = process.env.NEXT_PUBLIC_API_URL;
-      const res = await fetch(`${URL}/api/get-posts`);
+      const res = await fetch(`${URL}/api/get-posts`, {
+        cache: 'no-store', // This ensures the data is fetched fresh on every request
+      });
       const result = await res.json();
       setData(result);
     };
