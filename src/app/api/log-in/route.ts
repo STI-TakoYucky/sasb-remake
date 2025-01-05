@@ -6,7 +6,8 @@ import jwt from "jsonwebtoken";
 let isConnected = false;
 
 export async function POST(request: any) {
-
+    try {
+        
     if(!isConnected) {
         await connect();
         isConnected = true;
@@ -24,11 +25,17 @@ export async function POST(request: any) {
         const JWT_SECRET_KEY = process.env.SECRET_KEY;
         
         if(!JWT_SECRET_KEY) {
-            return NextResponse.json({"message": "Server error"}, {status: 401})
+            return NextResponse.json({"message": "Server error"}, {status: 500})
         }
         const token = jwt.sign({email}, JWT_SECRET_KEY)
         return NextResponse.json({"message": "Logged in succesfully", "token": token, "firstName": user.firstName, "lastName": user.lastName, "role": user.role}, {status: 200})
     }
 
     return NextResponse.json({"message": "Invalid Password"}, {status: 401})
+
+    } catch (error) {
+        return NextResponse.json({"message": "Server error"}, {status: 500})
+    }
+
+    
 }
