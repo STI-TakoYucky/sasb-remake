@@ -1,27 +1,15 @@
-"use client";
-
+'use client'
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
-
-export async function getServerSideProps() {
-  const URL = process.env.NEXT_PUBLIC_API_URL;
-  const res = await fetch(`${URL}/api/get-posts`);
-
-  const data = await res.json();
-
-  console.log(data);
-
-  return {
-    props: {data},
-  };
-}
-
 export default function Post({ data }: any) {
+  console.log(data);
+  
   // const [posts, setPosts] = useState<any[]>([]);
 
   // useEffect(() => {
-  //   const FetchPosts = async () => {
+
+  //     setPosts(data);
   //   };
 
   //   FetchPosts();

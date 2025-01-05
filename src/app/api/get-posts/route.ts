@@ -15,7 +15,7 @@ export const GET = async (request: any, response: any) => {
     
 
     try {
-        const posts = await PostModel.find().read('primary');
+        const posts = await PostModel.find();
 
         return NextResponse.json( posts, { status: 200})
 
