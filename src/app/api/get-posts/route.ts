@@ -5,21 +5,22 @@ import { NextResponse } from "next/server";
 
 let isConnected = false;
 
-export const GET = async (request: any, response: any) => {
+export const GET = async (request: any) => {
+  if (!isConnected) {
+    await connect();
+    isConnected = true;
+  }
 
-    if (!isConnected) {
-        await connect();
-        isConnected = true;
-    }
+  try {
+    const posts = await PostModel.find();
 
+    const response = NextResponse.json(posts, { status: 200 });
     
+    // Set the cache-control header in the response.
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
 
-    try {
-        const posts = await PostModel.find();
-
-        return NextResponse.json( posts, { status: 200})
-
-    } catch (error) {
-        return NextResponse.json({ message: "Server Error" }, { status: 500 });
-    }
+    return response;
+  } catch (error) {
+    return NextResponse.json({ message: "Server Error" }, { status: 500 });
+  }
 };
