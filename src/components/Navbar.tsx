@@ -22,7 +22,7 @@ export default function Navbar() {
   return (
     <nav className='bg-primary z-30'>
         <div className='global-mx py-5 flex justify-between items-center'>  
-            <div className='w-[3rem] flex items-center'><img src="public/images/logo.png" alt="" /><h1 className='text-4xl font-onest font-bold text-white ml-1 mt-1'><Link href='/'>SASB</Link></h1></div>
+            <div className='w-[3rem] flex items-center'><img src="/images/logo.png" alt="" /><h1 className='text-4xl font-onest font-bold text-white ml-1 mt-1'><Link href='/'>SASB</Link></h1></div>
             <div className='relative'>
             </div>
             

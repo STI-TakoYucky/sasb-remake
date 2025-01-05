@@ -1,30 +1,24 @@
-"use client";
-
+'use client'
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
-export default function Post() {
-  const [posts, setPosts] = useState<any[]>([]);
+export default function Post({ data }: any) {
+  console.log(data);
+  
+  // const [posts, setPosts] = useState<any[]>([]);
 
-  useEffect(() => {
-    const FetchPosts = async () => {
-      const URL = process.env.NEXT_PUBLIC_API_URL;
-      const res = await fetch(`${URL}/api/get-posts`);
+  // useEffect(() => {
 
-      const data = await res.json();
+  //     setPosts(data);
+  //   };
 
-      console.log(data);
-
-      setPosts(data);
-    };
-
-    FetchPosts();
-  }, []);
+  //   FetchPosts();
+  // }, []);
 
   return (
     <>
-      {Array.isArray(posts) && posts.length > 0 ? (
-        posts.map((data: any) => (
+      {Array.isArray(data) && data.length > 0 ? (
+        data.map((data: any) => (
           <div className="post-item global-mx my-16" key={data._id}>
             <div className="flex post-header">
               <Image
