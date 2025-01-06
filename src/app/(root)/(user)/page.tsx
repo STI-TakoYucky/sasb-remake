@@ -1,4 +1,4 @@
-
+export const dynamic = 'force-dynamic';
 import FeaturedPosts from '@/components/FeaturedPosts';
 //install daisyUI   npm i -D daisyui@latest
 import Post from '@/components/Post'
@@ -23,7 +23,7 @@ export default async function Home() {
         </main>
       )
   } catch (error) {
-    
+    console.error(error)
   }
 
 }
