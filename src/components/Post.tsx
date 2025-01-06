@@ -1,7 +1,13 @@
+'use client'
+
 import Image from "next/image";
+import { useEffect } from "react";
 
 
 export default function Post({ posts }: any) {
+  useEffect(()=> {
+    console.log("initialData: ", posts)
+}, [])
 
   return (
     <>
