@@ -1,5 +1,5 @@
 import connect from "../../../../lib/mongodb";
-import User from "../../../../models/User";
+import User from "../../../../models/UserModel";
 import { NextResponse } from 'next/server'
 import jwt from "jsonwebtoken";
 

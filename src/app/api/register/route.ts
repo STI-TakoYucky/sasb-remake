@@ -1,4 +1,4 @@
-import User from "../../../../models/User";
+import User from "../../../../models/UserModel";
 import connect from "../../../../lib/mongodb";
 import { NextResponse } from "next/server";
 
