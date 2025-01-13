@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 let isConnected = false;
 
 export const POST = async (request: any, response: any) => {
-
+    try {
     if (!isConnected) {
         await connect();
         isConnected = true;
@@ -19,7 +19,7 @@ export const POST = async (request: any, response: any) => {
         return NextResponse.json({message: "Email already exists"}, {status: 409})
     }
 
-    try {
+    
         const newUser = new User({
             firstName,
             lastName,

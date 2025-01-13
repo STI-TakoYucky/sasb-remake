@@ -14,7 +14,7 @@ export default function Post({ posts }: postProps) {
   return (
     <div>
     {Array.isArray(posts) && posts.length > 0 ? (
-      posts.map((post: any) => (
+      posts.map((post: any, index: number) => (
         <div className="post-item global-mx mt-16" key={post._id}>
           <div className="flex post-header">
             <Image
@@ -33,7 +33,7 @@ export default function Post({ posts }: postProps) {
           <CustomImageContainer images={post.images} />
 
           <div className="post-desc">{post.caption}</div>
-          <div className="bg-primary-200 h-[.1rem] rounded-full w-full mt-10"></div>
+          {index != (posts.length - 1) && <div className="bg-primary-200 h-[.1rem] rounded-full w-full mt-10"></div>}
         </div>
       ))
     ) : (

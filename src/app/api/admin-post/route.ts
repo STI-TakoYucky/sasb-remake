@@ -14,6 +14,10 @@ export const POST = async (request: any) => {
     await connect();
     const { organization, caption, images } = await request.json();
 
+    if (organization == undefined) {
+      return NextResponse.json({message: "Please input an organization"}, { status: 400 })
+    }
+
     //upload the images in cloudinary
     const uploadedImages = await Promise.all(
       images.map(async (image: { file: string; fileName: string }) => {
@@ -44,6 +48,6 @@ export const POST = async (request: any) => {
 
     return NextResponse.json({ message: "Post successful" }, { status: 201 });
   } catch (error: any) {
-    console.log("Error creating post:", error.message);
+    return NextResponse.json({ message: error.message }, { status: 500 });
   }
 };

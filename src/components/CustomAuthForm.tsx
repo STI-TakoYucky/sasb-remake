@@ -7,7 +7,7 @@ export default function AuthForm({data, submit, buttonName, children, success}: 
   
   return (
     <>
-         <form className="form-control gap-5 w-full max-w-[30rem]" onSubmit={submit}>
+         <form className="form-control gap-5 w-full max-w-[30rem]" onSubmit={submit} noValidate>
           {
             data.map(({icon, inputType, placeholder, ref}, index) => {
               return (

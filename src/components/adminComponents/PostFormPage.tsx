@@ -5,12 +5,15 @@ import { useImperativeFilePicker } from 'use-file-picker';
 import { FileContent } from 'use-file-picker/types';
 import { FileTypeValidator } from 'use-file-picker/validators';
 import { IoClose } from "react-icons/io5";
+import { Alert } from "@/components"
 
 export default function PostPage() {
 
   const [organization, setOrganization] = useState<undefined | string>(undefined);
   const [caption, setCaption] = useState("");
   const [images, setImages] = useState<FileContent<string>[]>([]);
+  const [success, setSuccess] = useState<string>();
+  const [error, setError] = useState<string>();
 
   //upload files
   const { openFilePicker, filesContent, removeFileByIndex } = useImperativeFilePicker({
@@ -26,32 +29,48 @@ export default function PostPage() {
     },
   });
 
+    //resets the success status or error status
+    useEffect(() => {
+      setTimeout(() => {
+        error && setError("");
+        success && setSuccess("");
+      }, 5000)
+    }, [error, success])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
+
       const payload = {
         caption,
         organization,
-        images: filesContent.map((file) => ({
+        images: images.map((file) => ({
           file: file.content,
           fileName: file.name,
         })),
       };
 
-      const URL = process.env.NEXT_PUBLIC_API_URL;
-      const res = await fetch(`${URL}/api/admin-post`, {
+      if (!error) {
+        const URL = process.env.NEXT_PUBLIC_API_URL;
+        const res = await fetch(`${URL}/api/admin-post`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload)
-    })
+        body: JSON.stringify(payload)})
+        const responseData = await res.json();
 
-    } catch (error) {
-      console.error("Network error:", error);
+        if(res.ok) {
+          setSuccess(responseData.message);
+        } else if (!res.ok) {
+          setError(responseData.message);
+        }
+      }
+      
+    } catch (error: any) {
+      console.error("An error has occured:", error.message);
+      setError(error.message)
     }
-
   }
 
   return (
@@ -100,6 +119,8 @@ export default function PostPage() {
 
         <input className="btn btn-success my-5 disabled:bg-[#00a96e]" type="submit" value={"Post"}></input>
       </form>
+      {success  && <Alert makeAlertVisible={"block"} alertType={"success"} alertMessages={[success]} hideButton={true}></Alert>}
+      {error  && <Alert makeAlertVisible={"block"} alertType="error" alertMessages={[error]} hideButton={true}></Alert>}
     </>
   )
 }

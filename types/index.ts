@@ -31,8 +31,9 @@ export interface useCredentialsProps {
 }
 
 export interface alertProps {
-  setError: Dispatch<SetStateAction<boolean>>;
-  setStatusMessage: Dispatch<SetStateAction<string>>;
+  makeAlertVisible: string;
+  alertColor?: string;
+  alertMessages?: string[];
 }
 
 export interface PostImageProps {

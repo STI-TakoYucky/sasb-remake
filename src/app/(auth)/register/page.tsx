@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { verifyToken } from "../../../../lib/verifyToken";
 import { useRouter } from "next/navigation";
-import { AuthenticationPage, CustomAuthForm, Alert} from "@/components";
+import { AuthenticationPage, CustomAuthForm, Alert } from "@/components";
 import { useAuthRefs } from "../../../../hooks";
 
 export default function Register() {
@@ -11,7 +11,7 @@ export default function Register() {
   const { emailRef, firstNameRef, lastNameRef, passwordRef } = useAuthRefs();
   const [error, setError] = useState(false);
   //sets the message in the form whether if it is an error or a successful operation for the users to see
-  const [statusMessage, setStatusMessage] = useState("");
+  const [statusMessage, setStatusMessage] = useState<string | string[]>();
   //disable the register button if the registration is a success
   const [isSuccess, setSuccess] = useState(false);
 
@@ -22,6 +22,14 @@ export default function Register() {
       router.push("/");
     }
   }, [router]);
+
+  //resets the error status every 10 seconds
+  useEffect(() => {
+      setTimeout(() => {
+        setError(false);
+        setStatusMessage("");
+      }, 10000)
+  }, [error])
 
   const verifyEmail = (email: string): boolean => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -43,8 +51,6 @@ export default function Register() {
   };
 
   const HandleRegister = async (event: React.FormEvent<HTMLFormElement>) => {
-    setError(false);
-    console.log("check credentials"); 
 
     event.preventDefault();
     const email = emailRef.current?.value.trim();
@@ -56,12 +62,15 @@ export default function Register() {
       setStatusMessage("Please fill out all the required fields.");
       setError(true);
     } else if (!verifyPassword(password)) {
-      setStatusMessage("Please input a valid password.");
+      setStatusMessage([
+        "Password must contain atleast one uppercase and lowercase letter.",
+        "Password must contain atleast one digit.",
+        "Password must be 8 characters long.",
+        "Password must contain atleast one of these symbols @$!%*?&-_"
+      ]);
       setError(true);
     } else if (!verifyEmail(email)) {
-      setStatusMessage(
-        "Please enter a valid email."
-      );
+      setStatusMessage("Please enter a valid email.");
       setError(true);
     } else {
       try {
@@ -137,36 +146,15 @@ export default function Register() {
         success={isSuccess}
       >
 
-        {/* <div className="text-gray-600 mt-3">
-          <ul className="flex gap-[.5rem] flex-col">
-            <li>
-              <p>Must contain atleast one uppercase and lowercase letter.</p>
-            </li>
-            <li>
-              <p>Must contain atleast one digit.</p>
-            </li>
-            <li>
-              <p>Must be 8 characters long.</p>
-            </li>
-            <li>
-              <p>Must contain atleast one @$!%*?&-_</p>
-            </li>
-            <li>
-              <p></p>
-            </li>
-          </ul>
-        </div> */}
-
-          <div className="-mb-5 min-h-6">
-            <span>
-              <p className={error ? "text-red-500" : "text-green-500"}>
-                {statusMessage}
-              </p>
-            </span>
-          </div>
-          
+        <div className="-mb-5 min-h-6">
+          <span>
+            <p className={error ? "text-red-500" : "text-green-500"}>
+              {statusMessage}
+            </p>
+          </span>
+        </div>
       </CustomAuthForm>
-      {error && <Alert setError={setError} setStatusMessage={setStatusMessage}></Alert>}
+      {error && <Alert makeAlertVisible={"block"} alertType="default" alertMessages={statusMessage} button={false}></Alert>}
     </AuthenticationPage>
   );
 }
