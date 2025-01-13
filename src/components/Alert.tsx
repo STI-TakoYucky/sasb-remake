@@ -1,40 +1,47 @@
-'use client'
+"use client";
 
-import React, { useEffect, useState } from 'react'
-import { IoClose } from "react-icons/io5"
-import { alertProps } from "../../types"
+import React, { useEffect, useState } from "react";
+import { IoClose } from "react-icons/io5";
+import { alertProps } from "../../types";
 
+const Alert = ({ makeAlertVisible, alertType, alertMessages, hideButton }: any) => {
 
-const Alert:React.FC<alertProps> = ({setError, setStatusMessage}) => {
-   
+  const [showAlert, setShowAlert] = useState(makeAlertVisible);
+ 
   return (
-    <div role="alert" className={`alert bg-white absolute w-[91%] max-w-[34rem] top-10 px-8 text-left shadow-lg flex justify-center items-center`}>
-  <div className=" relative">
-          <ul className="flex gap-[1rem] flex-col">
-            <li>
-            <div className='flex justify-end'>
-                <IoClose onClick={() => {setError(false); setStatusMessage("")}} className='text-4xl font-bold cursor-pointer hover:bg-red-500 rounded-full p-1'></IoClose>
-            </div>
-            </li>
-            <li>
-              <p>Password must contain atleast one uppercase and lowercase letter.</p>
-            </li>
-            <li>
-              <p>Password must contain atleast one digit.</p>
-            </li>
-            <li>
-              <p>Password must be 8 characters long.</p>
-            </li>
-            <li>
-              <p>Password must contain atleast one of these symbols @$!%*?&-_</p>
-            </li>
-            <li>
-              <p></p>
-            </li>
-          </ul>
-        </div>
-</div>
-  )
-}
+    <div
+      role="alert"
+      id="alert"
+      className={`${showAlert} z-50 alert ${alertType == "error" && alertType != "default"  ?  "bg-red-300" : "bg-green-300"} ${alertType == "default" && "bg-white"} fixed w-[91%] max-w-[34rem] top-12 text-left shadow-lg flex justify-center items-center`}
+    >
+      <div className="flex flex-col justify-center items-center relative w-full">
+          {!hideButton && <div className="flex justify-end w-full z-50">
+            <IoClose
+                onClick={() => {
+                  setShowAlert("hidden")
+                }}
+                className="text-4xl font-bold cursor-pointer rounded-full p-1 -mb-[1rem]"
+            ></IoClose>
+          </div>}
+          
+        <ul className="flex flex-col justify-center items-center w-full my-[.5rem] ">
+            {Array.isArray(alertMessages) ? alertMessages.map((message: string, index: number) => {
+              return(<li key={index} className={`${alertMessages.length > 1 && "mb-4"}`}>
+                <p>
+                  {message}
+                </p>
+              </li>)
+            }): 
+            (<li>
+            <p>
+              {alertMessages}
+            </p>
+            </li>)}
+          
+        </ul>
+      </div>
+    </div>
+  );
+};
 
-export default Alert
+export default Alert;

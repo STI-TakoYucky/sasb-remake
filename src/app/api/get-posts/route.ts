@@ -12,8 +12,6 @@ export const GET = async (request: any, response: any) => {
         isConnected = true;
     }
 
-    
-
     try {
         const posts = await PostModel.find();
 

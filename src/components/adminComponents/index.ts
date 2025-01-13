@@ -1,5 +1,5 @@
 import CreatePostButton from "./CreatePostButton";
-import PostPageForm from "./PostPageForm";
+import PostPageForm from "./PostFormPage";
 
 export {
     CreatePostButton,

@@ -4,12 +4,12 @@ import { PostImageProps } from "../../types";
 const CustomImageContainer: React.FC<PostImageProps> = ({ images }) => {
 
     const [imageContainerStyles, setStyles] = useState("post-image my-5 grid gap-2");
-    const [imageStyles, setImageStyles] = useState("rounded-md row-span-2 h-auto w-full object-cover");
+    const [imageStyles, setImageStyles] = useState("row-span-2 h-auto w-full object-cover");
 
     useEffect(() => {
         if (images?.length == 2) {
             setStyles("post-image my-5 grid grid-cols-2 gap-2")
-            setImageStyles("rounded-md row-span-2 h-full object-cover aspect-square")
+            setImageStyles("row-span-2 h-full object-cover aspect-square")
         }
     }, [])
 
