@@ -22,7 +22,6 @@ export default function RootLayout({
             <Preloader></Preloader> 
             <Navbar></Navbar>
             {children}
-            <Footer></Footer>
           </ProtectedRoutes>
       </body>
     </html>

@@ -17,7 +17,7 @@ export const login = async (email: string | undefined, password: string | undefi
       
 
       if(res.ok) {
-        return NextResponse.json({ "message": data.message, "token": data.token, "firstName": data.firstName, "lastName": data.lastName, "role": data.role}, {status: res.status});
+        return NextResponse.json({ "message": data.message, "token": data.token, "username": data.username, "role": data.role}, {status: res.status});
       }
 
 
