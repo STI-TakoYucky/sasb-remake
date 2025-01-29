@@ -55,3 +55,12 @@ export interface postProps {
     __v: number;
   }[];
 }
+interface NavActive {
+  link: string;
+  "y-pos": number 
+}
+
+export interface navProps {
+  navActive: NavActive;
+  setNavActive: React.Dispatch<React.SetStateAction<NavActive>>;
+}

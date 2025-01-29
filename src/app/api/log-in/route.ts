@@ -28,7 +28,8 @@ export async function POST(request: any) {
             return NextResponse.json({"message": "Server error"}, {status: 500})
         }
         const token = jwt.sign({email}, JWT_SECRET_KEY)
-        return NextResponse.json({"message": "Logged in succesfully", "token": token, "firstName": user.firstName, "lastName": user.lastName, "role": user.role}, {status: 200})
+        
+        return NextResponse.json({"message": "Logged in succesfully", "token": token, "username": user.username, "role": user.role}, {status: 200})
     }
 
     return NextResponse.json({"message": "Invalid Password"}, {status: 401})

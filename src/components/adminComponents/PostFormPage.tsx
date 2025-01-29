@@ -40,10 +40,12 @@ export default function PostPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
+      const author: string | undefined | null = localStorage.getItem("username")
 
       const payload = {
         caption,
         organization,
+        author,
         images: images.map((file) => ({
           file: file.content,
           fileName: file.name,

@@ -16,7 +16,7 @@ export default async function Home() {
       const data = await res.json();
 
       return (
-        <main className='py-20'>
+        <main>
             <FeaturedPosts></FeaturedPosts>
             <Post posts={data}></Post>
         </main>

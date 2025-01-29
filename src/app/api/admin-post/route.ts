@@ -2,6 +2,7 @@ import connect from "../../../../lib/mongodb";
 import cloudinary from "cloudinary";
 import { NextResponse } from "next/server";
 import PostModel from "../../../../models/PostModel";
+import { MongoClient } from 'mongodb';
 
 cloudinary.v2.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -11,8 +12,15 @@ cloudinary.v2.config({
 
 export const POST = async (request: any) => {
   try {
+    const MONGODB_URI = process.env.MONGODB_URI;
+    if (!MONGODB_URI) {
+      return NextResponse.json({message: "Missing MongoDB URI"}, {status: 404})
+    }
+    const client = new MongoClient(MONGODB_URI);
+
+
     await connect();
-    const { organization, caption, images } = await request.json();
+    const { organization, caption, images, author } = await request.json();
 
     if (organization == undefined) {
       return NextResponse.json({message: "Please input an organization"}, { status: 400 })
@@ -40,11 +48,27 @@ export const POST = async (request: any) => {
     
     const newPost = new PostModel({
       organization,
+      author,
       caption,
       images: uploadedImages
     });
 
     await newPost.save();
+
+    //once the post is added to the postsDB, update the array of posts inside the user
+
+    const sasbDB = client.db("SASBDB");
+    const userColl = sasbDB.collection("users");
+    
+    const query = {username: author}
+    const update = { $push: { posts: newPost }};
+    const options = { upsert: true };
+
+    const result = await userColl.updateOne(
+      query,
+      update,
+      options
+    );
 
     return NextResponse.json({ message: "Post successful" }, { status: 201 });
   } catch (error: any) {
