@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import { Navbar } from "@/components";
+import { AdminNavbar } from "@/components/adminComponents";
 
 export const metadata = {
   title: 'SASB',
@@ -15,8 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar></Navbar>
-            {children}
+        {children}
       </body>
     </html>
   )

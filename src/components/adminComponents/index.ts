@@ -1,7 +1,11 @@
-import CreatePostButton from "./CreatePostButton";
+import AdminDashboardButton from "./AdminDashboardButton";
 import PostPageForm from "./PostFormPage";
+import AdminNavbar from "./AdminNavbar"
+import PostList from "./PostList"
 
 export {
-    CreatePostButton,
-    PostPageForm
+    AdminDashboardButton as CreatePostButton,
+    PostPageForm,
+    AdminNavbar,
+    PostList
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { IoMenu } from "react-icons/io5";
 import ProfileDropdown from "./ProfileDropdown";
@@ -39,7 +38,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="nav__container absolute bg-primary-200 w-full overflow-hidden h-0">
+      <div className="nav__container hidden absolute bg-primary-200 w-full overflow-hidden h-0">
         <ul className="nav__links w-full text-center text-2xl text-white">
           <li>
             <Link href={""}>Home</Link>

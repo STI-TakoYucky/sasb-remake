@@ -7,7 +7,6 @@ import { CustomAuthForm } from "@/components";
 import { useRouter } from "next/navigation";
 import { useAuthRefs } from "../../../../hooks";
 import { login } from "../../../../lib/authenticate";
-import { setUsername, fullName } from "../../../../utils";
 import { AuthenticationPage } from "@/components";
 import { userContext } from "@/components/UserContextComponent";
 
@@ -37,7 +36,6 @@ export default function Login() {
     try {
       //check the authenticate.ts to access login function
       const res = await login(email, password);
-
       const data = await res.json();
 
 
@@ -49,14 +47,15 @@ export default function Login() {
 
       if (res.ok) {
         if (typeof window !== "undefined") {
+          console.log(data);
+          
           setError(false);
           setSuccess(true);
           setStatusMessage(data.message);
-          setUsername(data.firstName, data.lastName);
-          localStorage.setItem("username", fullName);
+          localStorage.setItem("username", data.username);
           localStorage.setItem("token", data.token);
           localStorage.setItem("role", data.role);
-          updateUser({role: data.role, username: fullName})
+          updateUser({role: data.role, username: data.username})
           router.replace("/")
         }
       } else if (!res.ok) {
