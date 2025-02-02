@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 let isConnected = false;
 
-export const GET = async (request: any, response: any) => {
+export const POST = async (request: any, response: any) => {
 
     if (!isConnected) {
         await connect();
@@ -13,7 +13,8 @@ export const GET = async (request: any, response: any) => {
     }
 
     try {
-        const posts = await PostModel.find().sort({createdAt: -1});
+        const username = await request.text();
+        const posts = await PostModel.find({"author": username}).sort({createdAt: -1});
 
         return NextResponse.json(posts, {
             status: 200,
@@ -21,7 +22,7 @@ export const GET = async (request: any, response: any) => {
               'Cache-Control': 'no-store', // Prevent caching on this response
             },
           });
-
+          
     } catch (error) {
         return NextResponse.json({ message: "Server Error" }, { status: 500 });
     }

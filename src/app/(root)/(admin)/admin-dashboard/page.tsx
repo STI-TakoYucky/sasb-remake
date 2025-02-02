@@ -13,8 +13,8 @@ const AdminDashboard = () => {
   return (
     <>
       <AdminNavbar navActive={navActive} setNavActive={setNavActive}></AdminNavbar>
-      <main className="py-20">
-        <section className="global-mx py-20">
+      <main className="py-28">
+        <section className="global-mx">
           <h1 className="text-3xl font-bold uppercase mb-6">Create post</h1>
           {
             navActive.link == "Create Post" && <PostPageForm></PostPageForm>
