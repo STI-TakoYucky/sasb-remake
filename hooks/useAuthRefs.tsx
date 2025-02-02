@@ -5,6 +5,7 @@ export function useAuthRefs() {
     const firstNameRef = useRef<HTMLInputElement>(null);
     const lastNameRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
+    const usernameRef = useRef<HTMLInputElement>(null);
 
-    return { emailRef, firstNameRef, lastNameRef, passwordRef};
+    return { emailRef, usernameRef, firstNameRef, lastNameRef, passwordRef};
 }

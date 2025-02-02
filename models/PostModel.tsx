@@ -7,8 +7,7 @@ const PostSchema = new Schema(
             required: true
         },
         caption: {
-            type: String,
-            required: true
+            type: String
         },
         images: [
             {
@@ -20,6 +19,7 @@ const PostSchema = new Schema(
         ],
         author: {
             type: String,
+            required: true
         }
     },
     { timestamps: true }
