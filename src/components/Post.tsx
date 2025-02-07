@@ -15,7 +15,7 @@ export default function Post({ posts }: postProps) {
     <div>
     {Array.isArray(posts) && posts.length > 0 ? (
       posts.map((post: any, index: number) => (
-        <div className="post-item global-mx mt-16" key={post._id}>
+        <div className="post-item global-mx mt-10" key={post._id}>
           <div className="flex post-header">
             <Image
               src="/images/logo.png"
@@ -26,14 +26,15 @@ export default function Post({ posts }: postProps) {
             />
             <div className="ml-2">
               <h1 className="font-onest text-lg">{post.organization}</h1>
-              <p>{formatDistanceToNow(post.createdAt)} ago</p>
+              <div className="flex justify-center items-center">
+              <p className="text-sm text-slate-500">By <span className="text-primary-200 cursor-pointer">@{post.author}</span></p>
+              <p className="ml-2 text-sm text-slate-500">{formatDistanceToNow(post.createdAt)} ago</p>
+              </div>
             </div>
           </div>
-
+          <div className="post-desc mt-8">{post.caption}</div>
           <CustomImageContainer images={post.images} />
-
-          <div className="post-desc">{post.caption}</div>
-          {index != (posts.length - 1) && <div className="bg-primary-200 h-[.1rem] rounded-full w-full mt-10"></div>}
+          {index != (posts.length - 1) && <div className="bg-slate-300 h-[.05rem] rounded-full w-full mt-10"></div>}
         </div>
       ))
     ) : (

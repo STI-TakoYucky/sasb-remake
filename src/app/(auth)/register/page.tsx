@@ -8,8 +8,9 @@ import { useAuthRefs } from "../../../../hooks";
 
 export default function Register() {
   const router = useRouter();
-  const { emailRef, firstNameRef, lastNameRef, passwordRef } = useAuthRefs();
+  const { emailRef, usernameRef, firstNameRef, lastNameRef, passwordRef } = useAuthRefs();
   const [error, setError] = useState(false);
+  const [passwordHint, setPasswordHint] = useState<string[]>();
   //sets the message in the form whether if it is an error or a successful operation for the users to see
   const [statusMessage, setStatusMessage] = useState<string | string[]>();
   //disable the register button if the registration is a success
@@ -28,6 +29,7 @@ export default function Register() {
       setTimeout(() => {
         setError(false);
         setStatusMessage("");
+        setPasswordHint(undefined)
       }, 10000)
   }, [error])
 
@@ -57,17 +59,17 @@ export default function Register() {
     const firstName = firstNameRef.current?.value;
     const lastName = lastNameRef.current?.value;
     const password = passwordRef.current?.value;
+    const username = usernameRef.current?.value;
 
     if (!email || !firstName || !lastName || !password) {
       setStatusMessage("Please fill out all the required fields.");
       setError(true);
     } else if (!verifyPassword(password)) {
-      setStatusMessage([
-        "Password must contain atleast one uppercase and lowercase letter.",
+      setStatusMessage("Invalid password");
+      setPasswordHint(["Password must contain atleast one uppercase and lowercase letter.",
         "Password must contain atleast one digit.",
         "Password must be 8 characters long.",
-        "Password must contain atleast one of these symbols @$!%*?&-_"
-      ]);
+        "Password must contain atleast one of these symbols @$!%*?&-_"]);
       setError(true);
     } else if (!verifyEmail(email)) {
       setStatusMessage("Please enter a valid email.");
@@ -84,6 +86,7 @@ export default function Register() {
             firstName,
             lastName,
             email,
+            username,
             password,
           }),
         });
@@ -112,7 +115,7 @@ export default function Register() {
     <AuthenticationPage
       linkName="Login"
       link="/log-in"
-      styles="shadow-2xl w-full global-mx flex flex-col justify-center items-center rounded-md bg-white h-[43rem] p-8 my-10 max-w-[30rem] md:max-w-[35rem]"
+      styles="shadow-2xl w-full global-mx flex flex-col justify-center items-center rounded-md bg-white h-[46rem] p-8 my-10 max-w-[30rem] md:max-w-[35rem]"
     >
       <CustomAuthForm
         data={[
@@ -121,6 +124,12 @@ export default function Register() {
             inputType: "text",
             placeholder: "Email",
             ref: emailRef,
+          },
+          {
+            icon: "/images/user-round.svg",
+            inputType: "text",
+            placeholder: "Username",
+            ref: usernameRef,
           },
           {
             icon: "/images/user-round.svg",
@@ -154,7 +163,9 @@ export default function Register() {
           </span>
         </div>
       </CustomAuthForm>
-      {error && <Alert makeAlertVisible={"block"} alertType="default" alertMessages={statusMessage} button={false}></Alert>}
+      {passwordHint && <Alert makeAlertVisible={"block"} alertType="default" alertMessages={passwordHint} button={false}></Alert>}
+      {(error && !passwordHint) && <Alert makeAlertVisible={"block"} alertType="default" alertMessages={statusMessage} button={false}></Alert>}
+    
     </AuthenticationPage>
   );
 }

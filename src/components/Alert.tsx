@@ -24,7 +24,7 @@ const Alert = ({ makeAlertVisible, alertType, alertMessages, hideButton }: any) 
             ></IoClose>
           </div>}
           
-        <ul className="flex flex-col justify-center items-center w-full my-[.5rem] ">
+        <ul className="flex flex-col justify-center w-full my-[.5rem] text-center">
             {Array.isArray(alertMessages) ? alertMessages.map((message: string, index: number) => {
               return(<li key={index} className={`${alertMessages.length > 1 && "mb-4"}`}>
                 <p>

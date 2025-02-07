@@ -11,19 +11,18 @@ export const POST = async (request: any, response: any) => {
         isConnected = true;
     }
 
-    const { firstName, lastName, email, password } = await request.json();
+    const { firstName, lastName, email, username, password } = await request.json();
 
     const emailExists = await User.findOne({email})
 
     if(emailExists) {
         return NextResponse.json({message: "Email already exists"}, {status: 409})
     }
-
-    
         const newUser = new User({
             firstName,
             lastName,
             email,
+            username,
             password,
         });
         await newUser.save();
