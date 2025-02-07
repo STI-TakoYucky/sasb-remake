@@ -133,3 +133,27 @@ nav {
 }
 
 /* Admin Form Styles Ends Here*/
+
+/* Admin Navigation Styles Starts Here*/
+
+.navigation__container li {
+  cursor: pointer;
+  padding: .3rem .8rem;
+  position: relative;
+  z-index: 50;
+}
+
+.navigation__container li::after {
+  content:"";
+  z-index: -50;
+  position: absolute;
+  left: 0;
+  top: 1px;
+  width: 100%;
+  border-radius: 5000px;
+  height: 2rem;
+  background-color: #4869BD;
+  opacity: .2;
+}
+
+/* Admin Navigation Styles Ends Here*/
