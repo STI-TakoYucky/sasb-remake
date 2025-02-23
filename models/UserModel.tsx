@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { PostSchema } from "./PostModel";
 
 const userSchema = new Schema(
   {
@@ -28,6 +29,7 @@ const userSchema = new Schema(
       required: true,
       default: "user"
     },
+    posts: [PostSchema]
   },
   { timestamps: true }
 );
