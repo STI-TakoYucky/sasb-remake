@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const PostSchema = new Schema(
+export const PostSchema = new Schema(
     {
         organization: {
             type: String,
